@@ -1,26 +1,36 @@
 import { Button, VerticalBox, CheckBox, GroupBox } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
-    in-out property <int> counter: 42;
-    in-out property <bool> is_first_checked: false;
-    in-out property <bool> is_second_checked: false;
-    callback request-increase-value();
-    callback request-verify-values();
+    min-width: 300px;
+    min-height: 280px;
+    in-out property <bool> uppercase: false;
+    in-out property <bool> lowercase: false;
+    in-out property <bool> numbers: false;
+    in-out property <bool> symbols: false;
+    callback request-generate-password();
 
-    VerticalBox {
+    GroupBox {
         VerticalBox {
             CheckBox {
-                text: "First";
-                checked <=> root.is_first_checked;
+                text: "Uppercase";
+                checked <=> root.uppercase;
             }
             CheckBox {
-                text: "Second";
-                checked <=> root.is_second_checked;
+                text: "Lowercase";
+                checked <=> root.lowercase;
+            }
+            CheckBox {
+                text: "Numbers";
+                checked <=> root.numbers;
+            }
+            CheckBox {
+                text: "Symbols";
+                checked <=> root.symbols;
             }
             Button {
-                text: "Verify";
+                text: "Generate";
                 clicked => {
-                    root.request-verify-values();
+                    root.request-generate-password();
                 }
             }
         }
