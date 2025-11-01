@@ -1,7 +1,8 @@
-import { Button, VerticalBox, CheckBox, GroupBox } from "std-widgets.slint";
+import { Button, VerticalBox, CheckBox, GroupBox, HorizontalBox } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
-    min-width: 300px;
+    title: "Password Generator";
+    min-width: 340px;
     min-height: 280px;
     in-out property <bool> uppercase: false;
     in-out property <bool> lowercase: false;
@@ -11,21 +12,29 @@ export component AppWindow inherits Window {
 
     GroupBox {
         VerticalBox {
-            CheckBox {
-                text: "Uppercase";
-                checked <=> root.uppercase;
-            }
-            CheckBox {
-                text: "Lowercase";
-                checked <=> root.lowercase;
-            }
-            CheckBox {
-                text: "Numbers";
-                checked <=> root.numbers;
-            }
-            CheckBox {
-                text: "Symbols";
-                checked <=> root.symbols;
+            HorizontalBox {
+                VerticalBox {
+                    spacing: 20px;
+                    CheckBox {
+                        text: "Uppercase (A-Z)";
+                        checked <=> root.uppercase;
+                    }
+                    CheckBox {
+                        text: "Numbers (0-9)";
+                        checked <=> root.numbers;
+                    }
+                }
+                VerticalBox {
+                    spacing: 20px;
+                    CheckBox {
+                        text: "Lowercase (a-z)";
+                        checked <=> root.lowercase;
+                    }
+                    CheckBox {
+                        text: "Symbols (!@#$)";
+                        checked <=> root.symbols;
+                    }
+                }
             }
             Button {
                 text: "Generate";
