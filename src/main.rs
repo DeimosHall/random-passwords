@@ -1,5 +1,6 @@
 use std::error::Error;
 use random_str as random;
+use slint::ToSharedString;
 
 slint::include_modules!();
 
@@ -20,7 +21,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 ui.get_symbols()
             );
 
-            println!("Password: {}", random_password);
+            ui.set_password(random_password.to_shared_string());
         }
     });
 

@@ -1,21 +1,31 @@
-import { Button, VerticalBox, CheckBox, GroupBox, HorizontalBox, StyleMetrics, Palette } from "std-widgets.slint";
+import { Button, VerticalBox, CheckBox, GroupBox, HorizontalBox, StyleMetrics, Palette, LineEdit } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
     title: "Password Generator";
     background: StyleMetrics.dark-color-scheme ? Palette.background : #fafafb;
-    min-width: 340px;
+    min-width: 380px;
     min-height: 280px;
     in-out property <bool> uppercase: false;
     in-out property <bool> lowercase: false;
     in-out property <bool> numbers: false;
     in-out property <bool> symbols: false;
+    in-out property <string> password: "";
     callback request-generate-password();
 
     GroupBox {
-        Rectangle {
-            background: StyleMetrics.dark-color-scheme ? #2e2e32 : white;
-            border-radius: 10px;
-            VerticalBox {
+        VerticalBox {
+            Rectangle {
+                background: StyleMetrics.dark-color-scheme ? #2e2e32 : white;
+                border-radius: 10px;
+                LineEdit {
+                    width: 100%;
+                    text <=> root.password;
+                    read-only: true;
+                }
+            }
+            Rectangle {
+                background: StyleMetrics.dark-color-scheme ? #2e2e32 : white;
+                border-radius: 10px;
                 HorizontalBox {
                     VerticalBox {
                         spacing: 20px;
@@ -40,12 +50,12 @@ export component AppWindow inherits Window {
                         }
                     }
                 }
-                Button {
-                    text: "Generate";
-                    primary: true;
-                    clicked => {
-                        root.request-generate-password();
-                    }
+            }
+            Button {
+                text: "Generate";
+                primary: true;
+                clicked => {
+                    root.request-generate-password();
                 }
             }
         }
