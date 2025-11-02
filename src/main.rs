@@ -1,4 +1,5 @@
 use std::error::Error;
+use arboard::Clipboard;
 use random_str as random;
 use slint::ToSharedString;
 
@@ -6,7 +7,7 @@ slint::include_modules!();
 
 fn main() -> Result<(), Box<dyn Error>> {
     let ui: AppWindow = AppWindow::new()?;
-    println!("Hello");
+    let mut clipboard = Clipboard::new().unwrap();
 
     ui.on_request_generate_password({
         let ui_handle = ui.as_weak();
@@ -22,6 +23,15 @@ fn main() -> Result<(), Box<dyn Error>> {
             );
 
             ui.set_password(random_password.to_shared_string());
+        }
+    });
+
+    ui.on_request_copy_to_clipboard({
+        let ui_handler = ui.as_weak();
+        move || {
+            let ui = ui_handler.unwrap();
+            let password = ui.get_password();
+            clipboard.set_text(password.as_str()).unwrap();
         }
     });
 
