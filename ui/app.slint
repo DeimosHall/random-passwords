@@ -1,14 +1,14 @@
-import { Button, VerticalBox, CheckBox, GroupBox, HorizontalBox, StyleMetrics, Palette, LineEdit } from "std-widgets.slint";
+import { Button, VerticalBox, CheckBox, GroupBox, HorizontalBox, StyleMetrics, Palette } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
     title: "Password Generator";
     background: StyleMetrics.dark-color-scheme ? Palette.background : #fafafb;
     min-width: 380px;
     min-height: 280px;
-    in-out property <bool> uppercase: false;
-    in-out property <bool> lowercase: false;
-    in-out property <bool> numbers: false;
-    in-out property <bool> symbols: false;
+    in-out property <bool> uppercase: true;
+    in-out property <bool> lowercase: true;
+    in-out property <bool> numbers: true;
+    in-out property <bool> symbols: true;
     in-out property <string> password: "";
     callback request-generate-password();
 
@@ -17,10 +17,9 @@ export component AppWindow inherits Window {
             Rectangle {
                 background: StyleMetrics.dark-color-scheme ? #2e2e32 : white;
                 border-radius: 10px;
-                LineEdit {
-                    width: 100%;
+                height: 30px;
+                Text {
                     text <=> root.password;
-                    read-only: true;
                 }
             }
             Rectangle {
