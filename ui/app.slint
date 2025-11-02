@@ -1,7 +1,8 @@
-import { Button, VerticalBox, CheckBox, GroupBox, HorizontalBox } from "std-widgets.slint";
+import { Button, VerticalBox, CheckBox, GroupBox, HorizontalBox, StyleMetrics, Palette } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
     title: "Password Generator";
+    background: StyleMetrics.dark-color-scheme ? Palette.background : #fafafb;
     min-width: 340px;
     min-height: 280px;
     in-out property <bool> uppercase: false;
@@ -11,35 +12,40 @@ export component AppWindow inherits Window {
     callback request-generate-password();
 
     GroupBox {
-        VerticalBox {
-            HorizontalBox {
-                VerticalBox {
-                    spacing: 20px;
-                    CheckBox {
-                        text: "Uppercase (A-Z)";
-                        checked <=> root.uppercase;
+        Rectangle {
+            background: StyleMetrics.dark-color-scheme ? #2e2e32 : white;
+            border-radius: 10px;
+            VerticalBox {
+                HorizontalBox {
+                    VerticalBox {
+                        spacing: 20px;
+                        CheckBox {
+                            text: "Uppercase (A-Z)";
+                            checked <=> root.uppercase;
+                        }
+                        CheckBox {
+                            text: "Numbers (0-9)";
+                            checked <=> root.numbers;
+                        }
                     }
-                    CheckBox {
-                        text: "Numbers (0-9)";
-                        checked <=> root.numbers;
+                    VerticalBox {
+                        spacing: 20px;
+                        CheckBox {
+                            text: "Lowercase (a-z)";
+                            checked <=> root.lowercase;
+                        }
+                        CheckBox {
+                            text: "Symbols (!@#$)";
+                            checked <=> root.symbols;
+                        }
                     }
                 }
-                VerticalBox {
-                    spacing: 20px;
-                    CheckBox {
-                        text: "Lowercase (a-z)";
-                        checked <=> root.lowercase;
+                Button {
+                    text: "Generate";
+                    primary: true;
+                    clicked => {
+                        root.request-generate-password();
                     }
-                    CheckBox {
-                        text: "Symbols (!@#$)";
-                        checked <=> root.symbols;
-                    }
-                }
-            }
-            Button {
-                text: "Generate";
-                clicked => {
-                    root.request-generate-password();
                 }
             }
         }
