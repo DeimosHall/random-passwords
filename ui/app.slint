@@ -1,4 +1,4 @@
-import { Button, VerticalBox, CheckBox, GroupBox, HorizontalBox, StyleMetrics, Palette } from "std-widgets.slint";
+import { Button, VerticalBox, CheckBox, GroupBox, HorizontalBox, StyleMetrics, Palette, Slider } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
     title: "Password Generator";
@@ -11,6 +11,7 @@ export component AppWindow inherits Window {
     in-out property <bool> numbers: true;
     in-out property <bool> symbols: true;
     in-out property <string> password: "Press Generate";
+    in-out property <float> length: 16.0;
 
     callback request-generate-password();
     callback request-copy-to-clipboard();
@@ -66,6 +67,24 @@ export component AppWindow inherits Window {
                         CheckBox {
                             text: "Symbols (!@#$)";
                             checked <=> root.symbols;
+                        }
+                    }
+                }
+            }
+            Rectangle {
+                background: StyleMetrics.dark-color-scheme ? #2e2e32 : white;
+                border-radius: 10px;
+                border-width: 1px;
+                border-color: StyleMetrics.dark-color-scheme ? transparent : #e3e3e4;
+                VerticalBox {
+                    GroupBox {
+                        title: "Lenght: " + Math.round(root.length);
+                        Slider {
+                            width: 100%;
+                            minimum: 5;
+                            maximum: 64;
+                            value <=> root.length;
+                            step: 1;
                         }
                     }
                 }

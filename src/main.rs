@@ -15,7 +15,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             let ui = ui_handle.unwrap();
             // TODO: add error handling
             let random_password = random::get_string(
-                16,
+                ui.get_length() as usize,
                 ui.get_lowercase(),
                 ui.get_uppercase(),
                 ui.get_numbers(),
