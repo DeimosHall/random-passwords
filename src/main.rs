@@ -31,7 +31,9 @@ fn main() -> Result<(), Box<dyn Error>> {
         move || {
             let ui = ui_handler.unwrap();
             let password = ui.get_password();
-            clipboard.set_text(password.as_str()).unwrap();
+            if !password.eq("Press Generate") {
+                clipboard.set_text(password.as_str()).unwrap();
+            }
         }
     });
 
