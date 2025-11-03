@@ -1,0 +1,8 @@
+import { StyleMetrics } from "std-widgets.slint";
+
+export component Card inherits Rectangle {
+    background: StyleMetrics.dark-color-scheme ? #2e2e32 : white;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: StyleMetrics.dark-color-scheme ? transparent : #e3e3e4;
+}

@@ -1,10 +1,11 @@
 import { Button, VerticalBox, CheckBox, GroupBox, HorizontalBox, StyleMetrics, Palette, Slider } from "std-widgets.slint";
+import { Card } from "card.slint";
 
 export component AppWindow inherits Window {
     title: "Password Generator";
     background: StyleMetrics.dark-color-scheme ? Palette.background : #fafafb;
-    min-width: 380px;
-    min-height: 280px;
+//    min-width: 380px;
+//    min-height: 280px;
 
     in-out property <bool> uppercase: true;
     in-out property <bool> lowercase: true;
@@ -18,11 +19,8 @@ export component AppWindow inherits Window {
 
     GroupBox {
         VerticalBox {
-            Rectangle {
-                background: StyleMetrics.dark-color-scheme ? #2e2e32 : white;
-                border-radius: 10px;
-                border-width: 1px;
-                border-color: StyleMetrics.dark-color-scheme ? transparent : #e3e3e4;
+            padding: 30px;
+            Card {
                 HorizontalBox {
                     alignment: space-between;
                     Rectangle {
@@ -41,11 +39,7 @@ export component AppWindow inherits Window {
                     }
                 }
             }
-            Rectangle {
-                background: StyleMetrics.dark-color-scheme ? #2e2e32 : white;
-                border-radius: 10px;
-                border-width: 1px;
-                border-color: StyleMetrics.dark-color-scheme ? transparent : #e3e3e4;
+            Card {
                 HorizontalBox {
                     VerticalBox {
                         spacing: 20px;
@@ -71,11 +65,7 @@ export component AppWindow inherits Window {
                     }
                 }
             }
-            Rectangle {
-                background: StyleMetrics.dark-color-scheme ? #2e2e32 : white;
-                border-radius: 10px;
-                border-width: 1px;
-                border-color: StyleMetrics.dark-color-scheme ? transparent : #e3e3e4;
+            Card {
                 VerticalBox {
                     GroupBox {
                         title: "Lenght: " + Math.round(root.length);
@@ -94,6 +84,12 @@ export component AppWindow inherits Window {
                 primary: true;
                 clicked => {
                     root.request-generate-password();
+                }
+            }
+            HorizontalBox {
+                alignment: center;
+                Text {
+                    text: "Made with ♥️ by DeimosHall";
                 }
             }
         }
