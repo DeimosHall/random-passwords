@@ -2,3 +2,6 @@ target/
 Cargo.lock
 .idea/
 .vscode/
+
+# macOS ds_store files
+/**/.DS_Store
