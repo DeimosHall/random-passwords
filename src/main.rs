@@ -1,7 +1,7 @@
-use std::error::Error;
 use arboard::Clipboard;
-use random_str as random;
+use random_str::random::{self, CharBuilder};
 use slint::ToSharedString;
+use std::error::Error;
 
 slint::include_modules!();
 
@@ -13,14 +13,29 @@ fn main() -> Result<(), Box<dyn Error>> {
         let ui_handle = ui.as_weak();
         move || {
             let ui = ui_handle.unwrap();
-            // TODO: add error handling
-            let random_password = random::get_string(
-                ui.get_length() as usize,
-                ui.get_lowercase(),
-                ui.get_uppercase(),
-                ui.get_numbers(),
-                ui.get_symbols()
-            );
+            
+            let mut builder =
+                random::RandomStringBuilder::new().with_length(ui.get_length() as usize);
+
+            if ui.get_lowercase() {
+                builder = builder.with_lowercase();
+            }
+
+            if ui.get_uppercase() {
+                builder = builder.with_uppercase();
+            }
+
+            if ui.get_numbers() {
+                builder = builder.with_numbers();
+            }
+
+            if ui.get_symbols() {
+                builder = builder.with_symbols();
+            }
+
+            let random_password = builder
+                .build()
+                .unwrap_or_else(|| "Select at least one option".into());
 
             ui.set_password(random_password.to_shared_string());
         }
